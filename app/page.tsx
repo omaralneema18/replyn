@@ -41,7 +41,7 @@ export default function Home() {
       text: "Netjes geholpen en duidelijke uitleg gekregen. Ik voelde me op mijn gemak en vond het prettig dat alles rustig werd doorgenomen.",
       reply:
         "Dankjewel Lisa voor je review. Fijn om te horen dat je je op je gemak voelde en dat de uitleg duidelijk was. We vinden het belangrijk dat je met een gerust gevoel de deur uitgaat, dus het is mooi om te lezen dat je dat zo hebt ervaren. We waarderen je vertrouwen in Dental Care.",
-      status: "Klaar om te plaatsen",
+      status: "Persoonlijke reactie klaar",
     },
   ];
 
@@ -98,19 +98,19 @@ export default function Home() {
     billing === "yearly"
       ? locations === "single"
         ? "€10,99"
-        : "€21,98"
+        : "€21,99"
       : locations === "single"
       ? "€12,99"
-      : "€25,98";
+      : "€25,99";
 
   const growPrice =
     billing === "yearly"
       ? locations === "single"
         ? "€14,99"
-        : "€29,98"
+        : "€29,99"
       : locations === "single"
       ? "€16,99"
-      : "€33,98";
+      : "€33,99";
 
   return (
     <div className="min-h-screen bg-[#F8F1E7] text-[#1F2937]">
@@ -188,8 +188,8 @@ export default function Home() {
               <div className="mt-1 text-[#6B7280]">Professionele reacties</div>
             </div>
             <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
-              <div className="text-2xl font-semibold text-[#111827]">14 dgn</div>
-              <div className="mt-1 text-[#6B7280]">Gratis proberen</div>
+              <div className="text-2xl font-semibold text-[#111827]">Meer</div>
+              <div className="mt-1 text-[#6B7280]">Vertrouwen en zichtbaarheid</div>
             </div>
           </div>
         </div>
