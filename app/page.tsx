@@ -1,14 +1,17 @@
-"use client";
+export default async function SignupPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    plan?: string;
+    billing?: string;
+    locations?: string;
+  }>;
+}) {
+  const params = await searchParams;
 
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-
-export default function SignupPage() {
-  const searchParams = useSearchParams();
-
-  const plan = searchParams.get("plan") || "reply";
-  const billing = searchParams.get("billing") || "yearly";
-  const locations = searchParams.get("locations") || "single";
+  const plan = params.plan || "reply";
+  const billing = params.billing || "yearly";
+  const locations = params.locations || "single";
 
   const planLabel =
     plan === "grow" ? "Grow" : plan === "trial" ? "Gratis proefperiode" : "Reply";
@@ -19,9 +22,9 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen bg-[#F8F1E7] px-6 py-12 text-[#1F2937]">
       <div className="mx-auto max-w-3xl">
-        <Link href="/" className="text-sm text-[#6B7280] hover:text-[#111827]">
+        <a href="/" className="text-sm text-[#6B7280] hover:text-[#111827]">
           ← Terug naar home
-        </Link>
+        </a>
 
         <div className="mt-6 rounded-[32px] bg-white p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 md:p-10">
           <div className="text-sm font-medium uppercase tracking-[0.2em] text-[#F97316]">
