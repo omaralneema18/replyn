@@ -12,6 +12,43 @@ export default function Home() {
     "Bedankt voor je mooie review. Wat fijn om te horen dat je je goed geholpen voelde en dat alles duidelijk voor je was. We waarderen het enorm dat je dit deelt en hopen je snel weer te mogen verwelkomen."
   );
 
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [formOpen, setFormOpen] = useState(false);
+  const [formType, setFormType] = useState("Demo aanvraag");
+  const [submitted, setSubmitted] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    companyLocations: "1",
+    message: "",
+  });
+
+  const openForm = (type: string) => {
+    setFormType(type);
+    setFormOpen(true);
+    setSubmitted(false);
+  };
+
+  const closeForm = () => {
+    setFormOpen(false);
+  };
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
   const reviews = [
     {
       id: 1,
@@ -68,8 +105,6 @@ export default function Home() {
     },
   ];
 
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
   const stars = (count: number) =>
     "★".repeat(count) + "☆".repeat(5 - count);
 
@@ -114,6 +149,112 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[#F8F1E7] text-[#1F2937]">
+      {formOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+          <div className="w-full max-w-xl rounded-[28px] bg-white p-6 shadow-2xl">
+            <div className="mb-5 flex items-start justify-between gap-4">
+              <div>
+                <div className="text-sm font-medium uppercase tracking-[0.15em] text-[#F97316]">
+                  {formType}
+                </div>
+                <h3 className="mt-2 text-2xl font-semibold text-[#111827]">
+                  Laat je gegevens achter
+                </h3>
+                <p className="mt-2 text-[#4B5563]">
+                  We nemen contact met je op om te kijken wat het beste past bij jouw bedrijf.
+                </p>
+              </div>
+              <button
+                onClick={closeForm}
+                className="rounded-xl border border-black/10 px-3 py-2 text-sm hover:bg-[#FFF7ED]"
+              >
+                Sluiten
+              </button>
+            </div>
+
+            {submitted ? (
+              <div className="rounded-2xl bg-[#ECFDF5] p-5 text-[#065F46]">
+                <div className="text-lg font-semibold">Ontvangen</div>
+                <p className="mt-2 leading-7">
+                  Bedankt {formData.name || "voor je aanvraag"}. Dit formulier werkt nu visueel.
+                  Hierna koppelen we het aan e-mail of opslag zodat je echte leads ontvangt.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-[#111827]">Naam</label>
+                  <input
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none focus:border-[#F97316]"
+                    placeholder="Jouw naam"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-[#111827]">E-mail</label>
+                  <input
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none focus:border-[#F97316]"
+                    placeholder="naam@bedrijf.nl"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-[#111827]">Bedrijfsnaam</label>
+                  <input
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
+                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none focus:border-[#F97316]"
+                    placeholder="Jouw bedrijf"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-[#111827]">Aantal locaties</label>
+                  <select
+                    name="companyLocations"
+                    value={formData.companyLocations}
+                    onChange={handleInputChange}
+                    className="mt-2 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none focus:border-[#F97316]"
+                  >
+                    <option value="1">1 locatie</option>
+                    <option value="2-5">2 t/m 5 locaties</option>
+                    <option value="5+">Meer dan 5 locaties</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="text-sm font-medium text-[#111827]">Bericht</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    className="mt-2 h-28 w-full rounded-2xl border border-black/10 bg-white px-4 py-3 outline-none focus:border-[#F97316]"
+                    placeholder="Vertel kort wat je zoekt"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full rounded-2xl bg-[#111827] px-6 py-3 font-medium text-white hover:bg-black"
+                >
+                  Verstuur aanvraag
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
+
       <header className="sticky top-0 z-30 border-b border-black/5 bg-[#F8F1E7]/90 backdrop-blur">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
@@ -147,7 +288,10 @@ export default function Home() {
             </a>
           </nav>
 
-          <button className="rounded-xl bg-[#111827] px-4 py-2 text-sm font-medium text-white hover:bg-black">
+          <button
+            onClick={() => openForm("Demo aanvraag")}
+            className="rounded-xl bg-[#111827] px-4 py-2 text-sm font-medium text-white hover:bg-black"
+          >
             Vraag demo aan
           </button>
         </div>
@@ -170,10 +314,16 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
-            <button className="rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white shadow-lg shadow-orange-200 hover:bg-orange-500">
+            <button
+              onClick={() => openForm("Gratis proefperiode")}
+              className="rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white shadow-lg shadow-orange-200 hover:bg-orange-500"
+            >
               Start 14 dagen gratis
             </button>
-            <button className="rounded-2xl border border-[#D1D5DB] bg-white px-6 py-3 font-medium text-[#1F2937] hover:bg-[#FFF7ED]">
+            <button
+              onClick={() => openForm("Demo aanvraag")}
+              className="rounded-2xl border border-[#D1D5DB] bg-white px-6 py-3 font-medium text-[#1F2937] hover:bg-[#FFF7ED]"
+            >
               Bekijk hoe het werkt
             </button>
           </div>
@@ -507,7 +657,10 @@ export default function Home() {
                 ))}
               </div>
 
-              <button className="mt-8 w-full rounded-2xl bg-[#111827] px-6 py-3 font-medium text-white hover:bg-black">
+              <button
+                onClick={() => openForm("Gratis proefperiode - Reply")}
+                className="mt-8 w-full rounded-2xl bg-[#111827] px-6 py-3 font-medium text-white hover:bg-black"
+              >
                 Start gratis
               </button>
             </div>
@@ -552,7 +705,10 @@ export default function Home() {
                 ))}
               </div>
 
-              <button className="mt-8 w-full rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white hover:bg-orange-500">
+              <button
+                onClick={() => openForm("Gratis proefperiode - Grow")}
+                className="mt-8 w-full rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white hover:bg-orange-500"
+              >
                 Start gratis
               </button>
             </div>
@@ -586,7 +742,10 @@ export default function Home() {
                 ))}
               </div>
 
-              <button className="mt-8 w-full rounded-2xl border border-[#111827] px-6 py-3 font-medium text-[#111827] hover:bg-[#FFF7ED]">
+              <button
+                onClick={() => openForm("Maatwerk aanvraag")}
+                className="mt-8 w-full rounded-2xl border border-[#111827] px-6 py-3 font-medium text-[#111827] hover:bg-[#FFF7ED]"
+              >
                 Vraag maatwerk aan
               </button>
             </div>
@@ -646,10 +805,16 @@ export default function Home() {
               consistentie en online uitstraling kan verbeteren.
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
-              <button className="rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white hover:bg-orange-500">
+              <button
+                onClick={() => openForm("Gratis proefperiode")}
+                className="rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white hover:bg-orange-500"
+              >
                 Start gratis
               </button>
-              <button className="rounded-2xl border border-white/15 px-6 py-3 font-medium text-white hover:bg-white/5">
+              <button
+                onClick={() => openForm("Contact aanvraag")}
+                className="rounded-2xl border border-white/15 px-6 py-3 font-medium text-white hover:bg-white/5"
+              >
                 Neem contact op
               </button>
             </div>
