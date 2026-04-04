@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [billing, setBilling] = useState<"yearly" | "monthly">("yearly");
+  const [locations, setLocations] = useState<"single" | "multi">("single");
   const [demoReview, setDemoReview] = useState(
     "Super vriendelijk geholpen. Er werd echt de tijd genomen en alles werd duidelijk uitgelegd."
   );
@@ -44,6 +45,31 @@ export default function Home() {
     },
   ];
 
+  const faqItems = [
+    {
+      q: "Waarom kiezen voor Replyn?",
+      a: "Replyn zorgt dat reviews niet blijven liggen. Je bedrijf komt actiever, betrouwbaarder en professioneler over, zonder dat jij daar dagelijks mee bezig hoeft te zijn. Het helpt je om sneller te reageren, consistenter te communiceren en een sterkere indruk achter te laten op nieuwe klanten.",
+    },
+    {
+      q: "Moet ik elke reactie controleren?",
+      a: "Nee. Replyn is juist bedoeld om je werk uit handen te nemen. Je kunt het zo instellen dat reviews automatisch worden opgevolgd, of dat bepaalde reacties eerst als concept klaarstaan. Jij bepaalt hoeveel controle je wilt houden.",
+    },
+    {
+      q: "Wat zit er in de maandelijkse review analyse?",
+      a: "Je ontvangt een duidelijke samenvatting van wat klanten vaak positief benoemen, waar klachten of terugkerende frustraties zitten, en welke verbeterpunten eruit springen. Zo gebruik je reviews niet alleen voor reputatie, maar ook om je bedrijf slimmer te verbeteren.",
+    },
+    {
+      q: "Wat bedoelen jullie met review-uitnodigingen?",
+      a: "Met review-uitnodigingen kun je klanten automatisch een nette e-mail sturen met de vraag om een review achter te laten. Zo krijg je niet alleen betere opvolging van bestaande reviews, maar verzamel je ook sneller nieuwe positieve beoordelingen.",
+    },
+    {
+      q: "Kan ik meerdere locaties gebruiken?",
+      a: "Ja. Je kunt kiezen voor 1 locatie of voor een pakket tot 5 locaties. Heb je meer dan 5 vestigingen of wil je iets specifieks? Dan maken we een pakket op maat.",
+    },
+  ];
+
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
+
   const stars = (count: number) =>
     "★".repeat(count) + "☆".repeat(5 - count);
 
@@ -67,6 +93,24 @@ export default function Home() {
       );
     }
   };
+
+  const replyPrice =
+    billing === "yearly"
+      ? locations === "single"
+        ? "€10,99"
+        : "€21,98"
+      : locations === "single"
+      ? "€12,99"
+      : "€25,98";
+
+  const growPrice =
+    billing === "yearly"
+      ? locations === "single"
+        ? "€14,99"
+        : "€29,98"
+      : locations === "single"
+      ? "€16,99"
+      : "€33,98";
 
   return (
     <div className="min-h-screen bg-[#F8F1E7] text-[#1F2937]">
@@ -98,6 +142,9 @@ export default function Home() {
             <a href="#faq" className="hover:text-[#111827]">
               FAQ
             </a>
+            <a href="/blogs" className="hover:text-[#111827]">
+              Blogs
+            </a>
           </nav>
 
           <button className="rounded-xl bg-[#111827] px-4 py-2 text-sm font-medium text-white hover:bg-black">
@@ -106,10 +153,10 @@ export default function Home() {
         </div>
       </header>
 
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 py-20 md:grid-cols-2 md:items-center">
+      <section className="mx-auto grid max-w-7xl gap-12 px-6 pb-16 pt-12 md:grid-cols-2 md:items-center">
         <div>
           <div className="mb-5 inline-flex items-center rounded-full border border-orange-200 bg-orange-100 px-3 py-1 text-sm font-medium text-orange-700">
-            Automatisch reageren op Google reviews
+            14 dagen gratis proberen
           </div>
 
           <h1 className="max-w-2xl text-5xl font-semibold leading-tight text-[#111827] md:text-6xl">
@@ -124,7 +171,7 @@ export default function Home() {
 
           <div className="mt-8 flex flex-wrap gap-4">
             <button className="rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white shadow-lg shadow-orange-200 hover:bg-orange-500">
-              Vraag demo aan
+              Start 14 dagen gratis
             </button>
             <button className="rounded-2xl border border-[#D1D5DB] bg-white px-6 py-3 font-medium text-[#1F2937] hover:bg-[#FFF7ED]">
               Bekijk hoe het werkt
@@ -141,8 +188,8 @@ export default function Home() {
               <div className="mt-1 text-[#6B7280]">Professionele reacties</div>
             </div>
             <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
-              <div className="text-2xl font-semibold text-[#111827]">100%</div>
-              <div className="mt-1 text-[#6B7280]">Jouw stijl</div>
+              <div className="text-2xl font-semibold text-[#111827]">14 dgn</div>
+              <div className="mt-1 text-[#6B7280]">Gratis proberen</div>
             </div>
           </div>
         </div>
@@ -202,39 +249,39 @@ export default function Home() {
               Waarom reageren belangrijk is
             </div>
             <h2 className="mt-3 text-3xl font-semibold text-[#111827] md:text-4xl">
-              Reageren op reviews is goed voor vertrouwen, zichtbaarheid en je
-              reputatie.
+              Reageren op reviews helpt je bedrijf op meer manieren dan de meeste
+              ondernemers denken.
             </h2>
           </div>
 
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             <div className="rounded-3xl bg-[#FFF7ED] p-6 ring-1 ring-black/5">
               <h3 className="text-xl font-semibold text-[#111827]">
-                Je laat zien dat je feedback serieus neemt
+                Meer vertrouwen bij nieuwe klanten
               </h3>
               <p className="mt-3 leading-7 text-[#4B5563]">
-                Een snelle en persoonlijke reactie laat zien dat klantfeedback
-                telt en dat je service belangrijk vindt.
+                Als mensen zien dat een bedrijf actief reageert, voelt dat
+                persoonlijker, professioneler en betrouwbaarder.
               </p>
             </div>
 
             <div className="rounded-3xl bg-[#ECFDF5] p-6 ring-1 ring-black/5">
               <h3 className="text-xl font-semibold text-[#111827]">
-                Nieuwe klanten letten hier echt op
+                Sterkere indruk op Google Maps
               </h3>
               <p className="mt-3 leading-7 text-[#4B5563]">
-                Bedrijven die reageren op reviews komen actiever en betrouwbaarder
-                over dan bedrijven die reacties laten liggen.
+                Een actief en goed onderhouden reviewprofiel helpt je lokale
+                uitstraling en zichtbaarheid online.
               </p>
             </div>
 
             <div className="rounded-3xl bg-[#FEF2F2] p-6 ring-1 ring-black/5">
               <h3 className="text-xl font-semibold text-[#111827]">
-                Reviews helpen ook lokaal online
+                Reviews worden eindelijk echt benut
               </h3>
               <p className="mt-3 leading-7 text-[#4B5563]">
-                Een sterk reviewprofiel ondersteunt je zichtbaarheid in lokale
-                zoekresultaten en op Google Maps.
+                In plaats van reviews te laten liggen, gebruik je ze om beter over
+                te komen én om je bedrijf te verbeteren.
               </p>
             </div>
           </div>
@@ -324,138 +371,103 @@ export default function Home() {
       <section className="mx-auto max-w-7xl px-6 py-16">
         <div className="max-w-2xl">
           <div className="text-sm font-medium uppercase tracking-[0.2em] text-[#10B981]">
-            Instellingen
+            Extra features
           </div>
           <h2 className="mt-3 text-3xl font-semibold text-[#111827] md:text-4xl">
-            Geef Replyn jouw stijl en voorkeuren mee.
+            Niet alleen reageren, maar ook slimmer groeien.
           </h2>
         </div>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2">
-          <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5">
-            <div className="text-sm text-[#6B7280]">Voorbeeld instellingen</div>
-            <div className="mt-5 space-y-4">
-              <div className="rounded-2xl bg-[#FFF7ED] p-4">
-                <div className="text-sm font-medium text-[#9A3412]">
-                  Tone of voice
-                </div>
-                <div className="mt-1 text-[#1F2937]">
-                  Professioneel, vriendelijk en duidelijk
-                </div>
-              </div>
-
-              <div className="rounded-2xl bg-[#ECFDF5] p-4">
-                <div className="text-sm font-medium text-[#047857]">
-                  Wanneer als concept klaarzetten
-                </div>
-                <div className="mt-1 text-[#1F2937]">
-                  Bij gevoelige of afwijkende reviews
-                </div>
-              </div>
-
-              <div className="rounded-2xl bg-[#FEF2F2] p-4">
-                <div className="text-sm font-medium text-[#B91C1C]">
-                  Extra instructies
-                </div>
-                <div className="mt-1 text-[#1F2937]">
-                  Geen emoji, netjes afsluiten en oplossingsgericht reageren
-                </div>
-              </div>
+          <div className="rounded-3xl bg-gradient-to-r from-[#F97316] to-[#FB923C] p-8 text-white">
+            <div className="text-sm font-medium uppercase tracking-[0.2em] text-orange-100">
+              Review-uitnodigingen
             </div>
-          </div>
-
-          <div className="rounded-3xl bg-[#111827] p-6 text-white shadow-sm">
-            <div className="text-sm text-slate-400">Waarom dit handig is</div>
-            <div className="mt-2 text-2xl font-semibold">
-              Geen vaste templates, maar reacties die bij het bedrijf passen.
-            </div>
-
-            <p className="mt-5 leading-8 text-slate-300">
-              Replyn werkt niet met één standaardtekst voor iedereen. Je kunt
-              zelf aangeven hoe reacties moeten klinken, wat er wel of niet in
-              mag staan en wanneer iets beter eerst als concept klaar kan staan.
+            <h3 className="mt-3 text-2xl font-semibold">
+              Vraag automatisch nieuwe reviews aan.
+            </h3>
+            <p className="mt-4 text-lg leading-8 text-orange-50">
+              Laat klanten automatisch een nette uitnodiging ontvangen om een
+              review achter te laten. Zo bouw je niet alleen betere opvolging op,
+              maar ook meer volume aan reviews.
             </p>
-
-            <div className="mt-6 rounded-2xl bg-white/5 p-4 text-sm leading-6 text-slate-300">
-              Zo voelt het niet als een generieke AI-tool, maar als iets dat echt
-              namens jouw bedrijf reageert.
-            </div>
           </div>
-        </div>
-      </section>
 
-      <section className="bg-white py-16">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="rounded-[32px] bg-gradient-to-r from-[#F97316] to-[#FB923C] p-8 text-white md:p-10">
-            <div className="max-w-3xl">
-              <div className="text-sm font-medium uppercase tracking-[0.2em] text-orange-100">
-                Extra feature
-              </div>
-              <h2 className="mt-3 text-3xl font-semibold md:text-4xl">
-                Nodig klanten automatisch uit om een review achter te laten.
-              </h2>
-              <p className="mt-4 text-lg leading-8 text-orange-50">
-                Voeg klantgegevens toe en laat Replyn automatisch een nette
-                review-uitnodiging sturen via e-mail. Zo reageer je niet alleen
-                beter op reviews, maar verzamel je er ook meer.
-              </p>
+          <div className="rounded-3xl bg-[#111827] p-8 text-white">
+            <div className="text-sm font-medium uppercase tracking-[0.2em] text-emerald-300">
+              Maandelijkse review analyse
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#ECFDF5] py-16">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="max-w-3xl">
-            <div className="text-sm font-medium uppercase tracking-[0.2em] text-[#10B981]">
-              Maandelijkse inzichten
-            </div>
-            <h2 className="mt-3 text-3xl font-semibold text-[#111827] md:text-4xl">
-              Ontvang elke maand een overzicht van wat klanten waarderen en wat
-              beter kan.
-            </h2>
-            <p className="mt-4 text-lg leading-8 text-[#4B5563]">
-              Replyn bundelt terugkerende complimenten, klachten en verbeterpunten
-              in een duidelijke maandelijkse e-mailanalyse.
+            <h3 className="mt-3 text-2xl font-semibold">
+              Ontvang elke maand concrete inzichten uit je reviews.
+            </h3>
+            <p className="mt-4 text-lg leading-8 text-slate-300">
+              Zie in één overzicht wat klanten waarderen, welke klachten vaker
+              terugkomen en waar verbeterkansen liggen. Zo haal je niet alleen
+              reputatie, maar ook echte bedrijfsinzichten uit reviews.
             </p>
           </div>
         </div>
       </section>
 
-      <section id="pricing" className="mx-auto max-w-6xl px-6 py-16">
+      <section id="pricing" className="mx-auto max-w-7xl px-6 py-16">
         <div className="rounded-[32px] bg-white p-8 shadow-xl shadow-black/5 ring-1 ring-black/5 md:p-10">
           <div className="text-center">
             <div className="text-sm font-medium uppercase tracking-[0.2em] text-[#F97316]">
               Pricing
             </div>
             <h2 className="mt-3 text-3xl font-semibold text-[#111827] md:text-4xl">
-              Kies wat het beste bij jouw bedrijf past.
+              Eenvoudige prijzen, zonder gedoe.
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-[#4B5563]">
-              Kies het plan dat past bij jouw bedrijf. Jaarlijks is voordeliger.
+              Start 14 dagen gratis en kies daarna wat het beste past.
             </p>
 
-            <div className="mt-8 inline-flex rounded-2xl bg-[#F3F4F6] p-1">
-              <button
-                onClick={() => setBilling("yearly")}
-                className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${
-                  billing === "yearly"
-                    ? "bg-[#111827] text-white shadow"
-                    : "text-[#4B5563]"
-                }`}
-              >
-                Jaarlijks
-              </button>
-              <button
-                onClick={() => setBilling("monthly")}
-                className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${
-                  billing === "monthly"
-                    ? "bg-[#111827] text-white shadow"
-                    : "text-[#4B5563]"
-                }`}
-              >
-                Maandelijks
-              </button>
+            <div className="mt-8 flex flex-col items-center gap-4">
+              <div className="inline-flex rounded-2xl bg-[#F3F4F6] p-1">
+                <button
+                  onClick={() => setBilling("yearly")}
+                  className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${
+                    billing === "yearly"
+                      ? "bg-[#111827] text-white shadow"
+                      : "text-[#4B5563]"
+                  }`}
+                >
+                  Jaarlijks
+                </button>
+                <button
+                  onClick={() => setBilling("monthly")}
+                  className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${
+                    billing === "monthly"
+                      ? "bg-[#111827] text-white shadow"
+                      : "text-[#4B5563]"
+                  }`}
+                >
+                  Maandelijks
+                </button>
+              </div>
+
+              <div className="inline-flex rounded-2xl bg-[#F3F4F6] p-1">
+                <button
+                  onClick={() => setLocations("single")}
+                  className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${
+                    locations === "single"
+                      ? "bg-[#F97316] text-white shadow"
+                      : "text-[#4B5563]"
+                  }`}
+                >
+                  1 locatie
+                </button>
+                <button
+                  onClick={() => setLocations("multi")}
+                  className={`rounded-2xl px-5 py-2 text-sm font-medium transition ${
+                    locations === "multi"
+                      ? "bg-[#F97316] text-white shadow"
+                      : "text-[#4B5563]"
+                  }`}
+                >
+                  Tot 5 locaties
+                </button>
+              </div>
             </div>
           </div>
 
@@ -468,13 +480,21 @@ export default function Home() {
                 Automatisch reageren op reviews
               </h3>
 
+              <div className="mt-2 text-sm text-[#6B7280]">
+                {locations === "single" ? "Voor 1 locatie" : "Tot 5 locaties"}
+              </div>
+
               <div className="mt-6 text-5xl font-semibold text-[#111827]">
-                {billing === "yearly" ? "€10,99" : "€12,99"}
+                {replyPrice}
                 <span className="text-lg font-medium text-[#6B7280]"> / maand</span>
               </div>
               <div className="mt-2 text-sm text-[#6B7280]">excl. btw</div>
 
-              <div className="mt-6 space-y-3 text-left text-[#1F2937]">
+              <div className="mt-6 rounded-2xl bg-white px-4 py-3 text-sm font-medium text-[#111827] shadow-sm">
+                ✓ 14 dagen gratis proberen
+              </div>
+
+              <div className="mt-4 space-y-3 text-left text-[#1F2937]">
                 {[
                   "Automatische reviewreacties",
                   "Reacties in jouw stijl",
@@ -488,7 +508,7 @@ export default function Home() {
               </div>
 
               <button className="mt-8 w-full rounded-2xl bg-[#111827] px-6 py-3 font-medium text-white hover:bg-black">
-                Kies Reply
+                Start gratis
               </button>
             </div>
 
@@ -504,22 +524,27 @@ export default function Home() {
                 Reviews, uitnodigingen en inzichten
               </h3>
 
-              <div className="mt-2 text-sm text-slate-400">Tot 5 locaties</div>
+              <div className="mt-2 text-sm text-slate-400">
+                {locations === "single" ? "Voor 1 locatie" : "Tot 5 locaties"}
+              </div>
 
               <div className="mt-6 text-5xl font-semibold">
-                {billing === "yearly" ? "€14,99" : "€16,99"}
+                {growPrice}
                 <span className="text-lg font-medium text-slate-400"> / maand</span>
               </div>
               <div className="mt-2 text-sm text-slate-400">excl. btw</div>
 
-              <div className="mt-6 space-y-3 text-left text-slate-200">
+              <div className="mt-6 rounded-2xl bg-white/10 px-4 py-3 text-sm font-medium text-white">
+                ✓ 14 dagen gratis proberen
+              </div>
+
+              <div className="mt-4 space-y-3 text-left text-slate-200">
                 {[
                   "Alles van Reply",
                   "Review-uitnodigingen via e-mail",
                   "Maandelijkse review analyse",
                   "Inzicht in wat klanten waarderen",
                   "Inzicht in verbeterpunten",
-                  "Tot 5 locaties inbegrepen",
                 ].map((item) => (
                   <div key={item} className="rounded-2xl bg-white/5 px-4 py-3">
                     ✓ {item}
@@ -528,7 +553,7 @@ export default function Home() {
               </div>
 
               <button className="mt-8 w-full rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white hover:bg-orange-500">
-                Kies Grow
+                Start gratis
               </button>
             </div>
 
@@ -537,14 +562,18 @@ export default function Home() {
                 Maatwerk
               </div>
               <h3 className="mt-3 text-2xl font-semibold text-[#111827]">
-                Voor meerdere vestigingen of speciale wensen
+                Voor meer dan 5 locaties of speciale wensen
               </h3>
 
               <div className="mt-6 text-3xl font-semibold text-[#111827]">
                 Op aanvraag
               </div>
 
-              <div className="mt-6 space-y-3 text-left text-[#1F2937]">
+              <div className="mt-6 rounded-2xl bg-[#F8F1E7] px-4 py-3 text-sm font-medium text-[#111827]">
+                ✓ 14 dagen gratis mogelijk
+              </div>
+
+              <div className="mt-4 space-y-3 text-left text-[#1F2937]">
                 {[
                   "Voor meer dan 5 locaties",
                   "Pakket op maat",
@@ -576,30 +605,28 @@ export default function Home() {
         </div>
 
         <div className="mt-10 space-y-4">
-          {[
-            [
-              "Waarom kiezen voor Replyn?",
-              "Omdat Replyn ervoor zorgt dat reviews niet blijven liggen. Je bedrijf komt actiever en professioneler over, zonder dat je daar dagelijks mee bezig hoeft te zijn.",
-            ],
-            [
-              "Moet ik elke reactie controleren?",
-              "Nee. Replyn kan reviews automatisch opvolgen. Je bepaalt zelf of bepaalde reviews eerst als concept klaar moeten staan.",
-            ],
-            [
-              "Werkt dit alleen voor Google reviews?",
-              "De focus ligt nu op Google reviews, omdat die voor lokale zichtbaarheid en vertrouwen vaak het belangrijkst zijn.",
-            ],
-            [
-              "Wat krijg ik in de maandelijkse analyse?",
-              "Een overzicht van terugkerende complimenten, klachten en verbeterpunten, zodat je snel ziet wat klanten waarderen en wat aandacht nodig heeft.",
-            ],
-          ].map(([question, answer]) => (
+          {faqItems.map((item, index) => (
             <div
-              key={question}
-              className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-black/5"
+              key={item.q}
+              className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-black/5"
             >
-              <h3 className="text-lg font-semibold text-[#111827]">{question}</h3>
-              <p className="mt-3 leading-7 text-[#4B5563]">{answer}</p>
+              <button
+                onClick={() => setOpenFaq(openFaq === index ? null : index)}
+                className="flex w-full items-center justify-between px-6 py-5 text-left"
+              >
+                <span className="text-lg font-semibold text-[#111827]">
+                  {item.q}
+                </span>
+                <span className="text-2xl text-[#F97316]">
+                  {openFaq === index ? "−" : "+"}
+                </span>
+              </button>
+
+              {openFaq === index && (
+                <div className="px-6 pb-6 text-[#4B5563] leading-7">
+                  {item.a}
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -612,15 +639,15 @@ export default function Home() {
               Klaar om te starten?
             </div>
             <h2 className="mt-3 text-3xl font-semibold md:text-4xl">
-              Zorg dat reviews niet meer blijven liggen.
+              Probeer Replyn 14 dagen gratis.
             </h2>
             <p className="mt-4 text-slate-300">
-              Laat Replyn het grootste deel automatisch afhandelen en houd grip
-              op hoe jouw bedrijf online overkomt.
+              Laat reviews niet langer liggen en ontdek hoe Replyn je tijd,
+              consistentie en online uitstraling kan verbeteren.
             </p>
             <div className="mt-6 flex flex-wrap gap-4">
               <button className="rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white hover:bg-orange-500">
-                Vraag demo aan
+                Start gratis
               </button>
               <button className="rounded-2xl border border-white/15 px-6 py-3 font-medium text-white hover:bg-white/5">
                 Neem contact op
