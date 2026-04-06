@@ -1,10 +1,10 @@
 "use client";
 
+import { Suspense, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
 import { supabase } from "@/lib/supabase";
 
-export default function SignupPage() {
+function SignupContent() {
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(false);
 
@@ -49,7 +49,7 @@ export default function SignupPage() {
       ]);
 
       if (insertError) {
-        alert("Opslaan klant mislukt.");
+        alert(insertError.message);
         console.error(insertError);
         return;
       }
@@ -195,5 +195,13 @@ export default function SignupPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignupPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F8F1E7]" />}>
+      <SignupContent />
+    </Suspense>
   );
 }
