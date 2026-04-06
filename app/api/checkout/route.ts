@@ -21,18 +21,30 @@ function getPriceId(plan: string, billing: string, locations: string) {
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { plan, billing, locations } = body;
+    const { plan, billing, locations, customer } = body;
 
     const priceId = getPriceId(plan, billing, locations);
 
     if (!priceId) {
-      return NextResponse.json({ error: "Geen geldige prijs gevonden." }, { status: 400 });
+      return NextResponse.json(
+        { error: `Geen geldige prijs gevonden voor ${plan}_${billing}_${locations}` },
+        { status: 400 }
+      );
     }
 
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+    const name = customer?.name || "";
+    const email = customer?.email || "";
+    const company = customer?.company || "";
+    const phone = customer?.phone || "";
+    const notes = customer?.notes || "";
 
     const session = await stripe.checkout.sessions.create({
       mode: "subscription",
+      customer_email: email || undefined,
+      client_reference_id: company || email || undefined,
       line_items: [
         {
           price: priceId,
@@ -41,6 +53,26 @@ export async function POST(req: Request) {
       ],
       subscription_data: {
         trial_period_days: 14,
+        metadata: {
+          plan,
+          billing,
+          locations,
+          customer_name: name,
+          customer_email: email,
+          company,
+          phone,
+          notes,
+        },
+      },
+      metadata: {
+        plan,
+        billing,
+        locations,
+        customer_name: name,
+        customer_email: email,
+        company,
+        phone,
+        notes,
       },
       success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/signup?plan=${plan}&billing=${billing}&locations=${locations}`,
@@ -48,8 +80,16 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json({ url: session.url });
-  } catch (error) {
+  } catch (error: any) {
+    console.error("STRIPE CHECKOUT ERROR:");
     console.error(error);
-    return NextResponse.json({ error: "Checkout aanmaken mislukt." }, { status: 500 });
+
+    return NextResponse.json(
+      {
+        error:
+          error?.message || "Checkout aanmaken mislukt.",
+      },
+      { status: 500 }
+    );
   }
 }
