@@ -25,17 +25,25 @@ export async function GET(req: Request) {
     const { tokens } = await oauth2Client.getToken(code);
     oauth2Client.setCredentials(tokens);
 
-    const oauth2 = google.oauth2({
-      auth: oauth2Client,
-      version: "v2",
-    });
+    let googleEmail = "";
+    let googleName = "";
 
-    const me = await oauth2.userinfo.get();
+    if (tokens.id_token) {
+      const ticket = await oauth2Client.verifyIdToken({
+        idToken: tokens.id_token,
+        audience: process.env.GOOGLE_CLIENT_ID!,
+      });
+
+      const payload = ticket.getPayload();
+
+      googleEmail = payload?.email || "";
+      googleName = payload?.name || "";
+    }
 
     const { error } = await supabaseAdmin.from("google_connections").insert([
       {
-        google_account_email: me.data.email || "",
-        account_name: me.data.name || "",
+        google_account_email: googleEmail,
+        account_name: googleName,
         access_token: tokens.access_token || "",
         refresh_token: tokens.refresh_token || "",
         scope: tokens.scope || "",
@@ -49,6 +57,7 @@ export async function GET(req: Request) {
 
     return NextResponse.redirect(`${new URL(req.url).origin}/getting-started`);
   } catch (error: any) {
+    console.error("GOOGLE CALLBACK ERROR:", error);
     return NextResponse.json(
       { error: error?.message || "OAuth callback mislukt." },
       { status: 500 }
