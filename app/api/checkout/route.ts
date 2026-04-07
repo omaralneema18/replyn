@@ -74,7 +74,7 @@ export async function POST(req: Request) {
         phone,
         notes,
       },
-      success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${baseUrl}/getting-started?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${baseUrl}/signup?plan=${plan}&billing=${billing}&locations=${locations}`,
       allow_promotion_codes: true,
     });

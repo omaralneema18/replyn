@@ -96,7 +96,7 @@ export default function WelcomePage() {
 
                 <input
                   name="industry"
-                  placeholder="Branche (bijv. tandarts, salon, restaurant)"
+                  placeholder="Branche"
                   onChange={handleChange}
                   className="w-full rounded-2xl border border-black/10 px-4 py-3 outline-none focus:border-[#F97316]"
                 />
@@ -117,14 +117,10 @@ export default function WelcomePage() {
 
                 <textarea
                   name="styleNotes"
-                  placeholder="Hoe moeten reacties klinken? Bijvoorbeeld: vriendelijk en professioneel, niet te lang, geen emoji, noem altijd de bedrijfsnaam, bied bij klachten rustig een oplossing aan."
+                  placeholder="Hoe moeten reacties klinken?"
                   onChange={handleChange}
                   className="h-40 w-full rounded-2xl border border-black/10 px-4 py-3 outline-none focus:border-[#F97316]"
                 />
-              </div>
-
-              <div className="mt-6 rounded-2xl bg-[#F8F1E7] p-4 text-sm leading-7 text-[#4B5563]">
-                Je hoeft dit niet perfect in te vullen. Een paar duidelijke voorkeuren zijn genoeg om te starten.
               </div>
 
               <button
@@ -136,29 +132,13 @@ export default function WelcomePage() {
             </>
           ) : (
             <>
-              <div className="text-sm font-medium uppercase tracking-[0.2em] text-[#10B981]">
-                Alles ontvangen
-              </div>
-
-              <h2 className="mt-3 text-3xl font-semibold text-[#111827]">
-                Alles staat klaar 🎉
+              <h2 className="text-3xl font-semibold text-[#111827]">
+                Opgeslagen 🎉
               </h2>
 
               <p className="mt-4 text-lg text-[#4B5563]">
-                We hebben je onboarding ontvangen. De volgende stap is dat we je account klaarmaken en je instructies sturen.
+                Je onboarding staat nu in Supabase.
               </p>
-
-              <div className="mt-6 space-y-3">
-                <div className="rounded-2xl bg-[#ECFDF5] px-4 py-3">
-                  ✓ Account wordt ingericht
-                </div>
-                <div className="rounded-2xl bg-[#ECFDF5] px-4 py-3">
-                  ✓ Reactiestijl wordt voorbereid
-                </div>
-                <div className="rounded-2xl bg-[#ECFDF5] px-4 py-3">
-                  ✓ Je ontvangt de volgende stappen per mail
-                </div>
-              </div>
 
               <div className="mt-8 flex gap-4">
                 <Link
@@ -166,12 +146,6 @@ export default function WelcomePage() {
                   className="rounded-2xl bg-[#111827] px-6 py-3 font-medium text-white hover:bg-black"
                 >
                   Terug naar home
-                </Link>
-                <Link
-                  href="/demo"
-                  className="rounded-2xl border border-black/10 px-6 py-3 font-medium text-[#111827] hover:bg-[#FFF7ED]"
-                >
-                  Bekijk demo
                 </Link>
               </div>
             </>
