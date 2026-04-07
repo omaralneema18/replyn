@@ -9,62 +9,40 @@ export default function ConnectGooglePage() {
         </div>
 
         <h1 className="mt-3 text-4xl font-semibold text-[#111827]">
-          Zo koppel je jouw Google reviews
+          Koppel jouw Google Bedrijfsprofiel
         </h1>
 
         <p className="mt-5 text-lg leading-8 text-[#4B5563]">
-          Je hoeft dit maar één keer te doen. Daarna kunnen wij je reviewreacties
-          voor je verwerken.
+          Klik hieronder, log in met het Google-account waarmee je jouw bedrijf beheert
+          en geef toestemming. Daarna kunnen we de koppeling verder automatiseren.
         </p>
 
-        <div className="mt-10 space-y-6">
-          <div className="rounded-3xl bg-[#F8F1E7] p-6">
-            <div className="text-lg font-semibold text-[#111827]">
-              1. Zorg dat je eigenaar bent van je Google Bedrijfsprofiel
-            </div>
-            <p className="mt-2 text-[#4B5563]">
-              Log in op het Google-account waarmee je jouw bedrijf beheert.
-            </p>
+        <div className="mt-10 rounded-3xl bg-[#F8F1E7] p-6">
+          <div className="text-lg font-semibold text-[#111827]">
+            Wat gebeurt er hierna?
           </div>
-
-          <div className="rounded-3xl bg-[#F8F1E7] p-6">
-            <div className="text-lg font-semibold text-[#111827]">
-              2. Stuur ons je bedrijfsnaam en Google-account e-mailadres
-            </div>
-            <p className="mt-2 text-[#4B5563]">
-              Zo weten wij welk profiel gekoppeld moet worden.
-            </p>
-          </div>
-
-          <div className="rounded-3xl bg-[#F8F1E7] p-6">
-            <div className="text-lg font-semibold text-[#111827]">
-              3. Wij helpen je verder met de koppeling
-            </div>
-            <p className="mt-2 text-[#4B5563]">
-              In deze fase doen we dit nog begeleid, zodat alles goed staat voordat
-              het automatisch draait.
-            </p>
+          <div className="mt-4 space-y-3 text-[#4B5563]">
+            <p>• Je logt in met Google</p>
+            <p>• Je geeft toegang aan Replyn</p>
+            <p>• Wij slaan de koppeling veilig op</p>
+            <p>• Daarna bouwen we de automatische reviewverwerking verder af</p>
           </div>
         </div>
 
-        <div className="mt-10 rounded-2xl bg-[#FFF7ED] p-5 text-sm leading-7 text-[#9A3412]">
-          Later maken we dit volledig automatisch. Voor nu is dit de snelste en veiligste manier om klanten live te krijgen.
-        </div>
+        <div className="mt-8 flex flex-wrap gap-4">
+          <a
+            href="/api/google/start"
+            className="rounded-2xl bg-[#F97316] px-6 py-3 font-medium text-white hover:bg-[#EA580C]"
+          >
+            Koppel met Google
+          </a>
 
-        <div className="mt-8 flex gap-4">
           <Link
             href="/getting-started"
-            className="rounded-2xl bg-[#111827] px-6 py-3 font-medium text-white hover:bg-black"
+            className="rounded-2xl border border-black/10 px-6 py-3 font-medium text-[#111827] hover:bg-[#FFF7ED]"
           >
             Terug
           </Link>
-
-          <a
-            href="mailto:hallo@replyn.nl"
-            className="rounded-2xl border border-black/10 px-6 py-3 font-medium text-[#111827] hover:bg-[#FFF7ED]"
-          >
-            Neem contact op
-          </a>
         </div>
       </div>
     </div>
